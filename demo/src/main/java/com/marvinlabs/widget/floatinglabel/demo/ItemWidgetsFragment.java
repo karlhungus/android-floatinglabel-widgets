@@ -22,6 +22,7 @@ public class ItemWidgetsFragment extends Fragment implements ItemPickerListener<
 
     FloatingLabelItemPicker<String> picker1;
     FloatingLabelItemPicker<String> picker2;
+    FloatingLabelItemPicker<String> picker3;
 
     public static ItemWidgetsFragment newInstance() {
         return new ItemWidgetsFragment();
@@ -70,6 +71,25 @@ public class ItemWidgetsFragment extends Fragment implements ItemPickerListener<
             }
         });
 
+        picker3 = (FloatingLabelItemPicker<String>) root.findViewById(R.id.picker3);
+        picker3.setItemPickerListener(this);
+        picker3.setAvailableItems(new ArrayList<String>());
+        picker3.setWidgetListener(new FloatingLabelItemPicker.OnWidgetEventListener<String>() {
+        @Override
+        public void onShowItemPickerDialog(FloatingLabelItemPicker source) {
+                StringPickerDialogFragment itemPicker3 = StringPickerDialogFragment.newInstance(
+                    source.getId(),
+                    "Picker 3",
+                    "OK", "Cancel",
+                    false,
+                    source.getSelectedIndices(),
+                    new ArrayList<String>(source.getAvailableItems()));
+                itemPicker3.setTargetFragment(ItemWidgetsFragment.this, 0);
+                if(!itemPicker3.getAvailableItems().isEmpty()) {
+                  itemPicker3.show(getChildFragmentManager(), "ItemPicker3");
+                }
+              }
+      });
         return root;
     }
 
@@ -92,6 +112,8 @@ public class ItemWidgetsFragment extends Fragment implements ItemPickerListener<
             picker1.setSelectedIndices(selectedIndices);
         } else if (pickerId == R.id.picker2) {
             picker2.setSelectedIndices(selectedIndices);
+        } else if (pickerId == R.id.picker3) {
+          picker3.setSelectedIndices(selectedIndices);
         }
     }
 }

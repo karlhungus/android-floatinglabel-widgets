@@ -53,8 +53,8 @@ public class StringPickerDialogFragment extends AbstractPickerDialogFragment<Str
     public ArrayList<String> getAvailableItems() {
         if (availableItems == null) {
             availableItems = getArguments().getStringArrayList(ARG_AVAILABLE_ITEMS);
-            if (availableItems == null || availableItems.isEmpty()) {
-                throw new RuntimeException("StringPickerDialogFragment needs some items to pick from");
+            if (availableItems == null) {
+                throw new RuntimeException("StringPickerDialogFragment items not set");
             }
         }
         return availableItems;
